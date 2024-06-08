@@ -1,0 +1,761 @@
+:root {
+    --r-background-color-trans: #ffffffad;
+    --r-main-font-size: 36px;
+    --r-heading-text-transform: none;
+    --r-link-color: #b16cea;
+    --r-link-color-dark: #440777;
+    --r-link-color-hover: #ff5e69;
+}
+
+/* Se cargan las fuentes desde /assets/fonts/Sixtyfour[BLED,SCAN].woff2 */
+@font-face {
+    font-family: "Sixtyfour";
+    src: url("/assets/fonts/Sixtyfour[BLED,SCAN].woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "League Gothic";
+    src: url("/assets/fonts/LeagueGothic-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* DEBUG */
+section[data-markdown] {
+    /* outline: solid; */
+}
+.reveal .slides {
+    transition: translate ease 0.5s;
+}
+.reveal:has(.presentation) .camera {
+    width: 20%;
+    height: 200px;
+    background: red;
+    z-index: 4;
+    position: fixed;
+    right: 55px;
+    border: double 5px transparent;
+    background-image: linear-gradient(var(--r-background-color), var(--r-background-color)), linear-gradient(to right, #b16cea, #ff5e69, #ff8a56, #ffa84b);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    top: 55px;
+    border-radius: 10px;
+}
+.reveal .slides.presentation {
+    translate: -15%;
+}
+
+.reveal .slides:has(.pdf-page) {
+    translate: none;
+}
+
+.reveal ol {
+    width: calc(100% - 1em);
+    margin: 0 0 0 1em;
+}
+.reveal p {
+    width: 100%;
+}
+.reveal blockquote {
+    width: 100%;
+}
+.reveal table th, .reveal table td {
+    vertical-align: top;
+}
+.reveal img {
+    margin: 0;
+}
+.reveal pre code {
+    max-height: unset;
+}
+pre code.hljs {
+    box-sizing: border-box;
+    display: block;
+    overflow-x: auto;
+    padding: 0.2em 0.5em;
+}
+
+button.hljs-copy-button {
+    text-indent: 0;
+    font-family: Material Icons;
+    text-align: center;
+    max-width: 2rem;
+    color: transparent;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin: 0;
+    border: double 2px transparent;
+    border-radius: 4px;
+    background-image: linear-gradient(var(--hljs-theme-background), var(--hljs-theme-background)), linear-gradient(to right, #b16cea, #ff5e69, #ff8a56, #ffa84b);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    padding: 0;
+    height: 2rem;
+    z-index: 2;
+}
+
+.hljs-copy-button:hover {
+    background-image: linear-gradient(84deg, #b16cea, #ff5e69 54%, #ffa84b);
+    opacity: 1;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+}
+
+button.hljs-copy-button:before {
+    content: "\e14d";
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 1.2;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: linear-gradient(84deg, #b16cea, #ff5e69 54%, #ffa84b);
+    color: white;
+}
+
+button.hljs-copy-button:hover:before {
+    background: unset;
+    -webkit-text-fill-color: unset;
+}
+
+button.hljs-copy-button[data-copied="true"]:before {
+    content: "\e876";
+}
+
+.MathJax_Display {
+    margin: 0 !important;
+}
+
+html.reveal-full-page .reveal .slides section {
+    height: var(--slide-height);
+}
+
+.reveal .pause-overlay {
+    background: linear-gradient(90deg,#b16cea 20%,#ff5e69 60%,#ff8a56 80%,#ffa84b);   
+}
+.reveal .pause-overlay .resume-button {
+    color: white;
+    border: 2px solid white;
+}
+
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    margin: 0 0 45px 0;
+    color: var(--r-main-color);
+    font-family: "League Gothic", Impact, sans-serif;
+    font-weight: normal;
+    /* font-family: Montserrat,sans-serif; */
+    /* font-weight: 600 !important; */
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-transform: uppercase;
+    text-shadow: none;
+    word-wrap: break-word;
+}
+
+.reveal h4 {
+    background: var(--r-main-color);
+    color: var(--r-background-color);
+    padding: 0.4rem;
+    margin: 0;
+    line-height: 1;
+}
+
+.reveal p:has(img) {
+    text-align: center;
+    margin: 0;
+}
+
+ul > li::marker {
+    content: "› ";
+    color: var(--r-link-color);;
+}
+
+ol > li::marker {
+    content: counter(list-item) "› ";
+    color: var(--r-link-color);;
+}
+
+.reveal a {
+    text-decoration: underline;
+}
+
+.chapter {
+    font-family: "Sixtyfour", Impact, sans-serif;
+    font-variation-settings: "BLED" 0, "SCAN" -10;
+}
+
+@media print {
+    .backgrounds {
+        background-color: var(--r-background-color);
+    }
+}
+
+.hljs-copy-button {
+    transform: translateX(calc(100% + 2em));
+    right: 2em;
+}
+
+.vcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal .slide-background-content {
+    max-width: unset;
+    max-height: unset;
+    background-position: center;
+    background-color: var(--r-background-color);
+}
+.reveal .slide-background-content.yt-iframe {
+    pointer-events: none;
+}
+
+.reveal .slide-background.dark-theme,
+.reveal section[data-markdown].dark-theme,
+.reveal .slide-background.dark-theme:after, .reveal .slide-background.dark-theme:before,
+.reveal .slide-background.dark-theme *:after, .reveal .slide-background.dark-theme *:before,
+.reveal section[data-markdown].dark-theme:after, .reveal section[data-markdown].dark-theme:before,
+.reveal section[data-markdown].dark-theme *:after, .reveal section[data-markdown].dark-theme *:before {
+    --r-background-color: #222222;
+    --r-main-color: #ffffff;
+    --r-background-color-trans: #070707ad;
+
+    color: var(--r-main-color);
+    /* background-color: var(--r-background-color); */
+}
+
+section[data-markdown]:before, .pdf-page > section:before {
+    content: "";
+    background-image: url("../img/conquerx.png"), url("../img/conquerx_blocks.png");
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-position: left top, right top;
+    margin: 1rem 0;
+    width: 100%;
+    background-size: auto 30px;
+    background-repeat: no-repeat;
+    height: 30px;
+}
+
+section[data-markdown].dark-theme:before, .pdf-page > section.dark-theme:before {
+    background-image: url("../img/conquerx_white.png"), url("../img/conquerx_blocks_white.png");
+}
+section[data-markdown].none-theme:before, .pdf-page > section.none-theme:before {
+    background: none;
+}
+section[data-markdown].subcover:before {
+    left: 7rem;
+    width: calc(100% - 11rem) !important;
+}
+section[data-markdown].subcover.exercises:after, section[data-markdown].subcover.exercises:before {
+    content: none;
+}
+
+section[data-markdown], html.reveal-print .reveal .slides .pdf-page section[data-markdown] {
+    padding-top: 4rem !important;
+    box-sizing: border-box !important;
+    text-align: left;
+}
+
+section[data-markdown].subcover, section[data-markdown].quote {
+    padding: 0;
+}
+
+html.reveal-full-page .reveal .slides section.cover {
+    display: flex !important; /* no quitar !important el display lo fuerzan en cada etiqueta*/
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    height: var(--slide-height);
+}
+
+
+html.reveal-full-page .reveal .slides section.normal {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+html.reveal-full-page .reveal .slides section.normal.wide {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+html.reveal-full-page .reveal .slides section.normal.quote {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+html.reveal-full-page .reveal .slides section.normal.two-columns {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+html.reveal-full-page .reveal .slides section.subcover {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+html.reveal-print .reveal .slides > section[data-markdown]:before {
+    background: none
+}
+
+/* html.reveal-full-page .reveal .slides section[data-markdown] > section {
+    height: calc(var(--slide-height) - 2 * 1rem - 30px);
+} */
+
+/* Bloque 9 */
+
+section[data-markdown].cover * {
+    margin: 0;
+}
+
+.cover h1 {
+    text-align: left !important;
+    background: linear-gradient(90deg,#b16cea 20%,#ff5e69 60%,#ff8a56 80%,#ffa84b);
+    color: white;
+    padding-left: 2rem;
+}
+
+.cover > blockquote > h3 {
+    display: block;
+    background: #ee4a34;
+    color: white;
+    text-align: center;
+}
+.cover > blockquote > h4 {
+    background: black;
+    color: white;
+}
+
+.cover blockquote {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    background: inherit;
+    box-shadow: none;
+}
+
+.normal h3 {
+    display: inline-block;
+    background: linear-gradient(to right,#b16cea 20%,#ff5e69 60%,#ff8a56 80%,#ffa84b);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 100% 20px;
+    background-position: 0 100%;
+    padding: 0 8px 0 2px;
+    text-align: left;
+    /* max-width: calc(100% - 156px - 2 * 1rem); */
+    width: 100%;
+    margin: 1rem 0 1rem 0;
+}
+html.reveal-full-page .reveal .slides section.normal ul {
+    width: 100%;
+}
+
+
+.reveal .slide-background.subcover.exercises:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--r-background-color-trans);
+}
+
+.subcover .content .number, section[data-markdown].subcover.exercises {
+    /* background: var(--r-background-color-trans); */
+}
+
+.subcover .content .number, section[data-markdown].subcover.exercises > h2:first-child {
+    font-size: calc(var(--r-heading1-size) * 0.5);
+}
+.subcover .content .number, section[data-markdown].subcover.exercises > h2:first-child:before {
+    content: none;
+}
+
+.subcover .content .number, section[data-markdown].subcover > h2:first-child,
+section[data-markdown].indice ul > li > strong {
+    background-image: linear-gradient(84deg, #b16cea, #ff5e69 54%, #ffa84b);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: inline;
+    position: absolute;
+    width: min-content;
+    font-size: var(--r-heading1-size);
+    height: min-content;
+    top: 0;
+    left: 0;
+    margin: 0;
+    white-space: nowrap;
+}
+.subcover .content .number:before, .subcover > h2:first-child:before {
+    content: "";
+    background: var(--r-background-color);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 0 1rem;
+    left: -1rem;
+    top: 0;
+    z-index: -1;
+}
+[data-markdown].subcover > h2:nth-child(2){
+    margin-bottom: 4rem;
+    text-align: center;
+    background: var(--r-background-color);
+}
+/* .subcover .content:after { */
+.subcover .content:after, section[data-markdown].subcover:after {
+    content: "";
+    display: block;
+    width: calc(100% - 2*4rem);
+    height: calc(100% - 2*4rem);
+    position: absolute;
+    background: transparent;
+    margin: 4rem;
+    box-sizing: border-box;
+    top: 0;
+    border: double 5px transparent;
+    border-radius: 1rem;
+    background-image: linear-gradient(var(--r-background-color), var(--r-background-color)), linear-gradient(to right, #b16cea, #ff5e69, #ff8a56, #ffa84b);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    z-index: -2;
+}
+
+.reveal .subcover .slide-background-content {
+    background: transparent;
+    background-position: center;
+}
+
+section[data-markdown].indice ul > li {
+    font-size: 1.5em;
+    margin-left: 1ch;
+}
+section[data-markdown].indice ul > li::marker {
+    content: "";
+    display: none;
+}
+
+section[data-markdown].indice ul > li > strong {
+    position: relative;
+    font-size: 1em;
+}
+
+section[data-markdown].indice ul {
+    list-style: none;
+}
+
+section[data-markdown].indice ul ul {
+    font-size: 1.5rem;
+}
+
+.normal .content {
+    display: flex;
+}
+.normal .contentv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 1rem;
+}
+
+.normal.cite-ref .content, .normal.single-img .content {
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+    height: 100%;
+}
+.no-shadow-blockquote blockquote {
+    box-shadow: none !important;
+}
+
+section[data-markdown].cite-ref > p:has(canvas) {
+    width: 100%;
+    height: 100%;
+}
+
+section[data-markdown].cite-ref > blockquote.cite {
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    font-size: 1.5rem;
+    margin-top: 10%;
+    inset: calc(50% - 40%/2);
+}
+
+.normal.cite-ref article small, .normal.quote article small {
+    text-align: justify;
+}
+.normal.cite-ref article cite {
+    display: block;
+    text-align: right;
+    font-size: 1.5rem;
+}
+
+section[data-markdown] > blockquote.cite > * {
+    z-index: 1;
+    position: relative;
+}
+
+.normal.images .content, .normal.images > p:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.normal.images .content img, .normal.images > p:nth-child(2) img {
+    height: 150px;
+    padding: 0 1rem;
+    margin: 0;
+}
+
+.normal .column {
+    --col2-w: 50%;
+
+    height: 100%;
+    width: calc(var(--col2-w) - 0.5rem);
+    text-align: center;
+}
+
+.normal .column > * {
+    width: 100%;
+    margin: 0;
+}
+
+.normal.editor iframe {
+    resize: vertical;
+    height: 50%;
+}
+
+.normal.title-two-columns .content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+section[data-markdown].quote article,
+section[data-markdown] > blockquote.cite {
+    display: flex;
+    width: 75%;
+    height: 75%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    position: relative;
+    align-items: center;
+    font-style: normal;
+    gap: 5%;
+    box-sizing: border-box;
+    border-width: 4px;
+    border-style: solid;
+    padding: 4px;
+    border: double 2px transparent;
+    border-radius: 1rem;
+    background-image: linear-gradient(var(--r-background-color), var(--r-background-color)), linear-gradient(to right, #b16cea, #ff5e69, #ff8a56, #ffa84b);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+section[data-markdown] > blockquote.cite:before, 
+section[data-markdown] > blockquote.cite:after {
+    content: "";
+    top: -0.5ch;
+    left: calc(50% - 1ch/2);
+    width: 1ch;
+    height: 1ch;
+    position: absolute;
+    font-size: 800%;
+    line-height: 1;
+    text-align: center;
+    font-family: Arial;
+    background: var(--r-background-color);
+}
+section[data-markdown] > blockquote.cite:after {
+    content: "“";
+}
+
+section.quote article:after,
+section[data-markdown] > blockquote.cite:after {
+    content: "“";
+    background-image: linear-gradient(84deg, #b16cea, #ff5e69 54%, #ffa84b);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: black !important;
+    z-index: 1;
+}
+
+section.quote article:before,
+section[data-markdown] > blockquote.cite:before {
+    color: transparent;
+    background: var(--r-background-color);
+    z-index: 0;
+    height: 10%;
+    top: calc(-10%/2);
+}
+
+section.quote article > *,
+section[data-markdown] blockquote.cite > * {
+    text-align: center;
+}
+
+.normal.quote article cite,
+section[data-markdown] > blockquote.cite blockquote {
+    background: transparent;
+    font-size: 70%;
+    display: inline;
+    margin: 0;
+    width: 80%;
+    height: 10%;
+    padding: 0;
+}
+
+.normal.quote article cite:before, .normal.quote article cite:after,
+section[data-markdown] > blockquote.cite blockquote:before,
+section[data-markdown] > blockquote.cite blockquote:after{
+    content: "";
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    border-bottom: 2px solid var(--r-main-color);
+}
+
+section[data-markdown] > blockquote.cite blockquote:before {
+    left: 0;
+}
+section[data-markdown] > blockquote.cite blockquote:after {
+    right: 0;
+}
+
+.normal.quote article cite:before,
+section[data-markdown] > blockquote.cite a:before {
+    left: 5%;
+}
+
+.normal.quote article cite:after,
+section[data-markdown] > blockquote.cite a:after {
+    right: 5%;
+}
+
+.quote article cite a,
+section[data-markdown] > blockquote.cite a {
+    background: var(--r-background-color);
+    z-index: 1;
+    padding: 0 1em;
+}
+
+.quote article > footer,
+section[data-markdown] > blockquote.cite > h5 {
+    font-size: 100%;
+    padding-bottom: 2%;
+    height: 10%;
+}
+
+.quote article p,
+section[data-markdown] > blockquote.cite > p {
+    margin: 0;
+    /* padding: 5%; */
+    height: 80%;
+    width: 90%;
+    display: flex;
+    font-size: 100%;
+    align-items: center;
+}
+.quote.consolas article p,
+section[data-markdown].consolas > blockquote.cite > p {
+    font-family: Consolas;
+    text-align: left;
+    white-space: pre-wrap;
+}
+section[data-markdown] blockquote.cite, section[data-markdown] blockquote.cite blockquote {
+    box-shadow: none;
+}
+section[data-markdown] > blockquote.cite > blockquote > p {
+    margin: 0;
+}
+
+section[data-markdown].code-img * {
+    margin: 0;
+}
+
+section[data-markdown].code-img > * {
+    position: relative;
+}
+
+section[data-markdown].code-img > p:has(img) {
+    width: 20%;
+    z-index: 2;
+}
+
+section[data-markdown].code-img > pre:has(code.hljs) {
+    width: 85%;
+    height: 75%;
+    float: right;
+    z-index: 1;
+    margin-top: -10%;
+}
+
+p:has(img).dnn-img:hover:before {
+    opacity: 0.8;
+}
+p:has(img).dnn-img:before {
+    content: "";
+    opacity: 0;
+    display: block;
+    width: 100%;
+    height: 100cqi;
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    pointer-events: none;
+    background-image: url(/assets/img/dnn/ELEMENTS.png);
+    transition: opacity 0.5s;
+}
+
+section[data-markdown] p.refs {
+    font-size: 0.5em;
+    width: calc(100% - 70%);
+    border-top: 1px dashed currentColor;
+    text-align: right;
+    margin: 1em 0 0 70%;
+    padding: 0.5em 0 0 0;
+    box-sizing: border-box;
+}

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/jpg" href="/slides/favicon.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConquerX - Master de Inteligencia Artificial</title>
+    <meta name="description" content="ConquerX - Master de Inteligencia Artificial">
+    <meta name="author" content="Victor Quilon Ranera">
+
+    <link rel="stylesheet" href="/assets/vendor/reveal.js/reset.css">
+    <link rel="stylesheet" href="/assets/vendor/reveal.js/reveal.css">
+    <!-- <link rel="stylesheet" href="/assets/vendor/reveal.js/theme/black.css" id="theme"> -->
+    <link rel="stylesheet" href="/assets/vendor/reveal.js/theme/simple.css" id="theme">
+    <!-- <link rel="stylesheet" href="/assets/vendor/reveal.js/theme/white.css" id="theme"> -->
+
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="/assets/vendor/reveal.js/plugin/highlight/styles/atom-one-dark.css">
+    <link rel="stylesheet" href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <style>
+        .slides {
+            z-index: 0;
+        }
+        #toc {
+            position: fixed;
+            text-align: left;
+            left: 0;
+            top: 0;
+            z-index: 2;
+        }
+        #toc:before {
+            content: "";
+            width: 1rem;
+            background: transparent;
+            top: 0;
+            left: 0px;
+            height: 100vh;
+            position: fixed;
+        }
+        #toc:hover #toc-indice {
+            transform: translateX(0);
+        }
+        #toc li > span {
+            cursor: default;
+            user-select: none;
+            line-height: 1.2;
+        }
+        #toc li > span.disabled {
+            cursor: not-allowed;
+            color: #e7e7e7;
+            text-decoration: line-through !important;
+        }
+        #toc li > span:hover {
+            text-decoration: underline;
+        }
+        #toc #toc-indice {
+            position: fixed;
+            overflow-y: auto;
+            transform: translateX(calc(-100% - 20px));
+            transition: transform 0.5s ease;
+            margin: 1em;
+            background-color: #f4f4f49e;
+            background: linear-gradient(to right, #b16ceacc 20%, #ff5e69cc 60%, #ff8a56cc 80%, #ffa84bcc);
+            color: white;
+            font-family: Consolas;
+            padding: 10px;
+            border-radius: 0.5rem;
+            backdrop-filter: blur(5px);
+        }
+        #toc #toc-indice li::marker {
+            color: white;
+        }
+        #toc-indice:before {
+            content: "TOC";
+            font-weight: bold;
+        }
+        ul > li {
+            margin-left: 2ch;
+        }
+    </style>
+</head>
+<body>
+    <div id="toc">
+        <ul id="toc-indice">
+            <!-- El índice de contenidos se llenará dinámicamente aquí -->
+        </ul>
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- Contenido dinámico se cargará aquí -->
+            <section
+                id="md-section"
+                style="text-align: left;"
+                data-markdown="index.md"
+                data-separator="^---$"
+                data-separator-vertical="^--$"
+                data-separator-notes="^> Note:"
+                data-charset="utf8">
+                <!--
+                    Note that Windows uses `\r\n` instead of `\n` as its linefeed character.
+                    For a regex that supports all operating systems, use `\r?\n` instead of `\n`.
+                -->
+            </section>
+        </div>
+        <!-- <div class="camera"></div> -->
+    </div>
+
+    <script src="/assets/vendor/reveal.js/reveal.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/search/search.js"></script>
+    <script src="/assets/vendor/marked/js/marked.min.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/math/math.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/pdfexport/pdfexport.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/smallcontrol/smallcontrol.js"></script>
+    
+    <script src="/assets/vendor/reveal.js/plugin/plantuml/plantuml.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/assets/vendor/reveal.js/plugin/highlight/plugins/copy.min.js"></script>
+
+    <script src="/assets/vendor/reveal.js/plugin/ace/ace.js"></script>
+
+    <!-- Chart plugin -->
+    <script src="/assets/vendor/reveal.js/plugin/chart/plugin.js"></script>
+    <script src="/assets/vendor/chart.js/chart.min.js"></script>
+
+    <!-- Carga la API de YouTube Player -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script src="/assets/js/script.js"></script>
+
+    <script>
+        function onYouTubeIframeAPIReady() {
+            document.querySelectorAll("div.slide-background-content:has(iframe)").forEach(el => {
+                let player = null;
+                // Auto gen id if not exists
+                let idel = el.id || `ytplayer-${Math.random().toString(36).substring(7)}`;
+                el.id = idel;
+                el.classList.add("yt-iframe");
+                let urlIframe = el.querySelector("iframe").dataset.src;
+                let url = new URL(urlIframe);
+                let isLoop = Boolean(url.searchParams.get("loop")) || false;
+                let playerVars = {};
+                // Se obtienen los parametros desde la URL, del URLSearchParams, no funciona forEach
+                for (let [key, value] of url.searchParams) {
+                    playerVars[key] = value;
+                }
+                // 'modestbranding': 1,
+                // 'annotations': 3
+                player = new YT.Player(idel, {
+                    height: '100%',
+                    width: '100%',
+                    videoId: url.pathname.split("/").reverse()[0],
+                    playerVars: playerVars,
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': isLoop ? onPlayerStateChange : null
+                    }
+                });
+                function onPlayerReady(event) {
+                    event.target.playVideo();
+                }
+                function onPlayerStateChange(event) {
+                    if (event.data == YT.PlayerState.ENDED) {
+                        event.target.seekTo(Number(playerVars["start"]), true);
+                        event.target.playVideo();
+                    }
+                }
+
+                el.querySelector("iframe").style.pointerEvents = "none";
+            });
+        }
+    </script>
+    <script>
+        function initReveal(route, indexh, indexv, indexf, ignoreCodeFragments=false){
+            let slidesEl = document.querySelector('.slides');
+            slidesEl.innerHTML = "";
+
+            let newSection = document.createElement("section");
+            newSection.id="md-section";
+            newSection.style.textAlign="left";
+            
+            routeMod = route;
+            if (!routeMod.endsWith("index.md")) routeMod = `${routeMod}/index.md`;
+            if (!routeMod.startsWith("http")) routeMod = `/${new URL(document.URL).pathname}${routeMod}`;
+
+            routeMod = routeMod.replaceAll("//", "/");
+            newSection.dataset["markdown"] = routeMod;
+            newSection.style.textAlign = "left";
+            newSection.dataset["separator"] = "^\\* \\* \\*$";
+            newSection.dataset["separatorVertical"] = "^---$";
+            newSection.dataset["separatorNotes"] = "^> Note:";
+            newSection.dataset["charset"] = "utf8";
+
+            slidesEl.dataset["markdownld"] = route;
+            slidesEl.appendChild(newSection);
+
+            Reveal.initialize({
+                // The "normal" size of the presentation, aspect ratio will
+                // be preserved when the presentation is scaled to fit different
+                // resolutions. Can be specified using percentage units.
+                width: 960,
+                height: 700,
+
+                // Factor of the display size that should remain empty around
+                // the content
+                margin: 0.1,
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.1, maxScale: 1.0,
+
+                controls: true,
+                previewLinks: false,
+                progress: true,
+                center: false,
+                hash: false,
+                pdfSeparateFragments: true,
+                pdfSeparateFragmentsAndJoinCodes: ignoreCodeFragments,
+
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealMath.MathJax2, RevealHighlight, PdfExport, Smallcontrol, RevealAce, RevealChart ],
+                notes_pointer: {
+                    pointer: {
+                        size: 15,  // in pixels (scaled like the rest of reveal.js)
+                        color: 'rgba(255, 0, 0, 0.8)',  // something valid for css background-color
+                        key: 'A'
+                    },
+                    notes: {
+                        key: 'S'
+                    }
+                },
+                highlight: {
+                    escapeHTML: false,
+                    beforeHighlight: hljs => hljs.addPlugin(new CopyButtonPlugin())
+                },
+                dependencies: [
+                    // {src: "/assets/vendor/reveal.js/plugin/ace/ace.js",  async: true}
+                // 	// ...
+                // 	{src: '../assets/vendor/reveal.js/plugin/notes/notes.js', async: true}
+                // 	// async is optional
+                ]
+            }).then((event) => {
+                // reveal.js is ready
+                let url = new URL( document.URL );
+                let slidesEl = queryParentSelector(event.currentSlide, ".slides[data-markdownld]");
+                let route = slidesEl.dataset["markdownld"];
+                // let route = routeMD.split("/").slice(0, -1).join("/");
+                url.hash = `#/${route}#${indexh || event.indexh}/${indexv || event.indexv}/${indexf}`.replaceAll("//", "/");
+                // Si ya estaba en el historial no se agrega
+                if (window.location.hash !== url.hash) window.history.pushState({}, "", url);
+                window.location.hash = url.hash;
+
+                indexh = parseInt(indexh) || 0;
+                indexv = parseInt(indexv) || 0;
+                indexf = parseInt(indexf) || 0;
+                Reveal.configure({ transition: "none" });
+                Reveal.slide(indexh, indexv, indexf);
+                Reveal.configure({ transition: "slide" });
+
+                let anchors = document.querySelectorAll("a")
+                if (anchors) {
+                    anchors.forEach(el => {
+                        if (el.href.endsWith(".md")) {
+                            el.addEventListener("click", e => {
+                                e.preventDefault();
+                                // rel_path = calcularRutaRelativa(window.location.href, a.href)
+                                loadContent(el.getAttribute("href"));
+                            });
+                        }
+                    });
+                }
+
+                // Adds class r-fit-text to second child of .subcover sections
+                document.querySelectorAll("section[data-markdown].subcover > h2:nth-child(2)").forEach(el => {
+                    el.classList.add("r-fit-text");
+                });
+                // Remove .fragment class from code elements
+                // document.querySelectorAll("code").forEach(el => {
+                //     el.classList.remove("fragment");
+                // });
+                onYouTubeIframeAPIReady();
+            });
+
+            let url = new URL( document.URL );
+            url.hash = `#/${route}`.replaceAll("//", "/");;
+            if (indexh){
+                url.hash += `#${indexh}`;
+                if (indexv) {
+                    url.hash += `/${indexv}`;
+                    if (indexf) url.hash += `/${indexf}`;
+                }
+            }
+            
+            window.location.hash = url.hash;
+        }
+        function loadContent(route, indexh=0, indexv=0, indexf=0, ignoreCodeFragments=false) {
+            // Configurar la presentación con el contenido Markdown
+            if (Reveal.destroy) Reveal.destroy();
+            initReveal(route, indexh, indexv, indexf, ignoreCodeFragments=ignoreCodeFragments);
+            setTimeout(() => {
+                document.querySelectorAll(".slides > #md-section, .slides .pdf-page").forEach(el => {
+                    if (el.textContent.trim() === "") el.remove();
+                });
+                document.querySelectorAll(".slides .pdf-page").forEach(el => {
+                    el.style.height = `${Reveal.getConfig().height*(1+Reveal.getConfig().margin)}px`;
+                });
+            }, 1000);
+        }
+
+        function nestRoutes(contents) {
+            var nestedTree = {};
+
+            for (var route in contents) {
+                if (contents.hasOwnProperty(route)) {
+                    var segments = route.split('/').filter(Boolean); // Eliminar segmentos vacíos
+
+                    var actualNode = nestedTree;
+
+                    for (var i = 0; i < segments.length; i++) {
+                        var segment = segments[i];
+
+                        if (!actualNode.hasOwnProperty(segment)) {
+                            actualNode[segment] = {};
+                        }
+
+                        actualNode = actualNode[segment];
+                    }
+
+                    // Copiar los datos originales al nodo final
+                    Object.assign(actualNode, contents[route]);
+                    actualNode["__url__"] = route;
+                }
+            }
+
+            return nestedTree;
+        }
+
+        // Función recursiva para construir el HTML del índice
+        function buildTOCHTML(node, parentElement) {
+            var ulEl = document.createElement('ul');
+
+            for (var key in node) {
+                if (key.startsWith("_")) continue;
+                if (node.hasOwnProperty(key)) {
+                    var listItem = document.createElement('li');
+                    
+                    var leaf = document.createElement('span');
+                    leaf.textContent = node[key]._title_ || key;
+                    if (node[key]._disabled_) leaf.classList.add("disabled");
+
+                    // Si es un nodo hoja, agregar el botón y el evento clic
+                    if (node[key].hasOwnProperty("__url__") && !node[key]._disabled_) {
+                        let url = node[key].__url__;
+                        // leaf.addEventListener('click', function() {
+                        //     loadContent(nodo[clave].__url__);
+                        // });
+                        leaf.onclick = () => loadContent(url);
+                    }
+                    else {
+                        leaf.classList.add("disabled");
+                    }
+
+                    listItem.appendChild(leaf);
+
+                    // Si tiene hijos, llamar recursivamente a la función
+                    if (Array.from(Object.keys(node[key])).filter(e => !e.startsWith("_") && !e.endsWith("_")).length > 0) {
+                        buildTOCHTML(node[key], listItem);
+                    }
+
+                    ulEl.appendChild(listItem);
+                }
+            }
+
+            parentElement.appendChild(ulEl);
+        }
+
+        function updateTOC() {
+            var tocIndex = document.getElementById('toc-indice');
+            // Limpiar el índice existente
+            tocIndex.innerHTML = '';
+
+            // Obtener las carpetas adyacentes a la ruta (solo funciona en entornos que permiten esta operación)
+            fetch('./contents.json')
+                .then(response => response.json())
+                .then(contents => {
+                    let nestedTree = nestRoutes(contents);
+                    buildTOCHTML(nestedTree, tocIndex);
+                });
+        }
+        updateTOC();
+        
+        function firstLoad() {
+            let url_doc = new URL( document.URL );
+            ignoreCodeFragments = url_doc.searchParams.has("print-pdf");
+            let hashURL = url_doc.hash;
+            if (hashURL) {
+                let [_, route, indexes] = hashURL.split("#");
+                let indexh = 0;
+                let indexv = 0;
+                let indexf = 0;
+                if (indexes) {
+                    [indexh, indexv, indexf] = indexes.split("/");
+                    indexh = parseInt(indexh) || 0;
+                    indexv = parseInt(indexv) || 0;
+                    indexf = parseInt(indexf) || 0;
+                }
+                loadContent(route, indexh, indexv, indexf, ignoreCodeFragments);
+            }
+            else {
+                loadContent("");
+            }
+        }
+        firstLoad();
+
+        function tooglePresetationMode() {
+            slidesEl = document.querySelector(".reveal .slides");
+            if (slidesEl.classList.contains("presentation")) {
+                slidesEl.classList.remove("presentation");
+            }
+            else {
+                slidesEl.classList.add("presentation");
+            }
+        }
+        // Al pulsar tecla R se recarga la presentación
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'r') {
+                firstLoad();
+            }
+            // Modo presentacion, se mueve a la izquierda la diapositiva, para dejar hueco al video
+            if (event.key === 'c') {
+                tooglePresetationMode();
+            }
+        });
+        Reveal.on( 'slidechanged', event => {
+             // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+            // Se cambia el hash de la url con el formato
+            // #/ruta/relativa/del/archivo.md/indexh/indexv
+            let url = new URL( document.URL );
+            let slidesEl = queryParentSelector(event.currentSlide, ".slides[data-markdownld]");
+            let route = slidesEl.dataset["markdownld"];
+            // let route = routeMD.split("/").slice(0, -1).join("/");
+            url.hash = `#/${route}#${event.indexh}/${event.indexv}`.replaceAll("//", "/");
+            if (window.location.hash !== url.hash) window.history.pushState({}, "", url);
+            window.location.hash = url.hash;
+        });
+        Reveal.on( 'slidetransitionend', event => {
+            // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+            // Se cambia el hash de la url con el formato
+            // #/ruta/relativa/del/archivo.md/indexh/indexv
+            let url = new URL( document.URL );
+            let slidesEl = queryParentSelector(event.currentSlide, ".slides[data-markdownld]");
+            let route = slidesEl.dataset["markdownld"];
+            // let route = routeMD.split("/").slice(0, -1).join("/");
+            url.hash = `#/${route}#${event.indexh}/${event.indexv}`.replaceAll("//", "/");
+            if (window.location.hash !== url.hash) window.history.pushState({}, "", url);
+            window.location.hash = url.hash;
+        });
+        Reveal.on( 'fragmentshown', event => {
+        // event.fragment = the fragment DOM element
+            // console.log(event);
+        // El event.fragment.parentElement, tiene x hijos, hay que sacar que indice es el event.fragment
+            // console.log(Array.from(event.fragment.parentElement.children).indexOf(event.fragment));
+            let url = new URL( document.URL );
+            if (url.hash) {
+                let [_, route, indexes] = url.hash.split("#");
+                let indexh = 0;
+                let indexv = 0;
+                let indexf = 0;
+                if (indexes) {
+                    [indexh, indexv, indexf] = indexes.split("/");
+                    indexh = parseInt(indexh) || 0;
+                    indexv = parseInt(indexv) || 0;
+                    indexf = parseInt(indexf) || 0;
+                }
+                indexf = Array.from(event.fragment.parentElement.children).indexOf(event.fragment)-1;
+                url.hash = `#/${route}#${indexh}/${indexv}/${indexf}`.replaceAll("//", "/");
+                window.location.hash = url.hash;
+            }
+        } );
+        Reveal.on( 'fragmenthidden', event => {
+            let url = new URL( document.URL );
+            if (url.hash) {
+                let [_, route, indexes] = url.hash.split("#");
+                let indexh = 0;
+                let indexv = 0;
+                let indexf = 0;
+                if (indexes) {
+                    [indexh, indexv, indexf] = indexes.split("/");
+                    indexh = parseInt(indexh) || 0;
+                    indexv = parseInt(indexv) || 0;
+                    indexf = parseInt(indexf) || 0;
+                }
+                indexf = Array.from(event.fragment.parentElement.children).indexOf(event.fragment)-1;
+                url.hash = `#/${route}#${indexh}/${indexv}/${indexf}`.replaceAll("//", "/");
+                window.location.hash = url.hash;
+            }
+        } );
+    </script>
+</body>
+</html>

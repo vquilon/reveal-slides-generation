@@ -1,0 +1,18 @@
+# random crap
+*~
+*.swp
+\#*\#
+.\#*
+
+# python crap
+*.pyc
+__pycache__/
+
+# IDEs
+.vscode
+.ipynb_checkpoints/
+.idea
+
+media/
+
+.env
